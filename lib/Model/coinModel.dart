@@ -7,3 +7,4 @@ class CoinModel {
 
   CoinModel(this.price, this.volume, this.percentChange24h);
 }
+ 

@@ -48,3 +48,4 @@ Future<CoinModel> fetchCryptoData() async {
         0.0, 0.0, 0.0); // Gestion d'erreur, renvoie des valeurs par défaut
   }
 }
+ 
