@@ -5,6 +5,7 @@ import '../Model/coinModel.dart';
 
 void main() {
   final coinModelStream = getCryptoData();
+  
 
   coinModelStream.listen((coinModel) {
     print('Prix du Bitcoin (EUR): ${coinModel.price}');
