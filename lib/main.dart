@@ -24,5 +24,5 @@ class MyApp extends StatelessWidget {
             bindings: [IndexBinding()]),
       ],
     );
-  }
+  }  
 }
