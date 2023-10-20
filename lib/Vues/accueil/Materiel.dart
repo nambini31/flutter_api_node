@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
+
 import 'package:flutter/services.dart';
 import 'package:flutter_api_node/Controlleur/IndexControlleur.dart';
 import 'package:get/get.dart';
@@ -6,17 +8,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class Materiel extends StatefulWidget {
-  const Materiel({Key? key}) : super(key: key);
+  Materiel({Key? key}) : super(key: key);
 
   @override
-  _MaterielState createState() => _MaterielState();
+  State<Materiel> createState() => _MaterielState();
 }
 
 class _MaterielState extends State<Materiel> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   var control = Get.find<IndexControlleur>();
+
   TextEditingController dateController = TextEditingController();
+
   List<String> _options = ['Option 1', 'Option 2', 'Option 3'];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

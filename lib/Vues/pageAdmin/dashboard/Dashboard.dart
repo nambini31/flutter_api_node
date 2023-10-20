@@ -228,7 +228,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Row(
               children: [
                 Expanded(
