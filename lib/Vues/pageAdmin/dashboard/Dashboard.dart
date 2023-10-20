@@ -2,11 +2,10 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_api_node/Controlleur/IndexControlleur.dart';
-import 'package:get/get.dart';
+import 'package:flutter_api_node/Controlleur/coinControlleur.dart';
+import 'package:flutter_api_node/Model/coinModel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
@@ -16,6 +15,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  List<CoinModel> coinDataList = [];
   final List<FlSpot> spots = const [
     FlSpot(1.68, 21.04),
     FlSpot(2.84, 26.23),
@@ -85,6 +85,19 @@ class _DashboardState extends State<Dashboard> {
     100: 'Nov',
     110: 'Dec',
   };
+  void initState() {
+    super.initState();
+
+    final coinModelStream = getCryptoData();
+
+    coinModelStream.listen((coinModel) {
+      // Mettez à jour la liste de données avec les nouvelles valeurs
+      setState(() {
+        coinDataList.clear();
+        coinDataList.add(coinModel);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -412,7 +425,7 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               Center(
                                 heightFactor: 0,
-                                child: Text('Rant',
+                                child: Text('Rente',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.getFont(
                                       'Roboto',
@@ -548,9 +561,9 @@ class _DashboardState extends State<Dashboard> {
                                   fontWeight: FontWeight.bold,
                                 ))),
                       ],
-                      rows: [
-                        DataRow(cells: [
-                          DataCell(Text(
+                      rows: coinDataList.map((coinModel) {
+                        return DataRow(cells: [
+                            DataCell(Text(
                             'Bitcoin',
                             style: GoogleFonts.getFont(
                               'Roboto',
@@ -560,7 +573,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           )),
                           DataCell(Text(
-                            '£ 335.65',
+                            '£ ${coinModel.volume.toStringAsFixed(2)}', // Utilisez le volume de la cryptomonnaie
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
@@ -569,7 +582,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           )),
                           DataCell(Text(
-                            '£ 0.000013',
+                            '£ ${coinModel.price.toStringAsFixed(6)}', // Utilisez le prix de la cryptomonnaie
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
@@ -578,7 +591,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           )),
                           DataCell(Text(
-                            '- 1.84 %',
+                            '${coinModel.percentChange24h.toStringAsFixed(2)}%', // Utilisez la variation en 24 heures
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
@@ -587,7 +600,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           )),
                           DataCell(Text(
-                            '225.23 £',
+                            '0.05 £', // Vous pouvez remplacer cette valeur par les données correctes si nécessaire
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
@@ -595,55 +608,8 @@ class _DashboardState extends State<Dashboard> {
                               fontWeight: FontWeight.bold,
                             ),
                           )),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text(
-                            'Bitcoin',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '£ 0.000013',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '£ 0.000013',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '- 1.84 %',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '225.23 £',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                        ]),
-                      ],
+                        ]);
+                      }).toList(),
                     ),
                   ),
                 ),
@@ -682,7 +648,16 @@ class _DashboardState extends State<Dashboard> {
                       rows: [
                         DataRow(cells: [
                           DataCell(Text(
-                            '-4.85 £',
+                            '+1,05',
+                            style: GoogleFonts.getFont(
+                              'Roboto',
+                              color: Colors.green,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                          DataCell(Text(
+                            '+1.85 %',
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
@@ -691,45 +666,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           )),
                           DataCell(Text(
-                            '-1.85 £',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '489.89 £',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text(
-                            '-4.85 £',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '-1.85 £',
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                          DataCell(Text(
-                            '489.89 £',
+                            '1 354.2 £',
                             style: GoogleFonts.getFont(
                               'Roboto',
                               color: Colors.white,
