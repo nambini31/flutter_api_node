@@ -12,7 +12,7 @@ class IndexVue extends GetView<IndexControlleur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (controller.index.value == 4) ? PageAdmin() : PageAdmin(),
+      body: (controller.index.value == 4) ? PageAdmin() : Materiel(),
     );
   }
 }
