@@ -228,137 +228,248 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           Expanded(
-            flex: 6,
+            flex: 4,
             child: Row(
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 3,
                   child: Container(
                     margin: EdgeInsets.all(5),
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.only(
+                        left: 20, right: 20, bottom: 20, top: 10),
                     color: Color.fromRGBO(6, 11, 39, 0.767),
-                    child: LineChart(
-                      LineChartData(
-                        lineTouchData: LineTouchData(
-                          handleBuiltInTouches: true,
+                    child: Stack(
+                      children: [
+                        Center(
+                          heightFactor: 0,
+                          child: Text('Performance',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.getFont(
+                                'Roboto',
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              )),
                         ),
-                        gridData: FlGridData(show: false),
-                        titlesData: FlTitlesData(
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              reservedSize: 32,
-                              interval: 1,
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                return bottomTitle[value.toInt()] != null
-                                    ? SideTitleWidget(
-                                        axisSide: meta.axisSide,
-                                        space: 10,
-                                        child: Text(
-                                            bottomTitle[value.toInt()]
-                                                .toString(),
+                        LineChart(
+                          LineChartData(
+                            lineTouchData: LineTouchData(
+                              handleBuiltInTouches: true,
+                            ),
+                            gridData: FlGridData(show: false),
+                            titlesData: FlTitlesData(
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 32,
+                                  interval: 1,
+                                  getTitlesWidget:
+                                      (double value, TitleMeta meta) {
+                                    return bottomTitle[value.toInt()] != null
+                                        ? SideTitleWidget(
+                                            axisSide: meta.axisSide,
+                                            space: 10,
+                                            child: Text(
+                                                bottomTitle[value.toInt()]
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.grey[400])),
+                                          )
+                                        : const SizedBox();
+                                  },
+                                ),
+                              ),
+                              rightTitles: AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              topTitles: AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              leftTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  getTitlesWidget:
+                                      (double value, TitleMeta meta) {
+                                    return leftTitle[value.toInt()] != null
+                                        ? Text(
+                                            leftTitle[value.toInt()].toString(),
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.grey[400])),
-                                      )
-                                    : const SizedBox();
-                              },
+                                                color: Colors.grey[400]))
+                                        : const SizedBox();
+                                  },
+                                  showTitles: true,
+                                  interval: 1,
+                                  reservedSize: 50,
+                                ),
+                              ),
                             ),
-                          ),
-                          rightTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          topTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          leftTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                return leftTitle[value.toInt()] != null
-                                    ? Text(leftTitle[value.toInt()].toString(),
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey[400]))
-                                    : const SizedBox();
-                              },
-                              showTitles: true,
-                              interval: 1,
-                              reservedSize: 50,
-                            ),
-                          ),
-                        ),
-                        borderData: FlBorderData(show: false),
-                        lineBarsData: [
-                          LineChartBarData(
-                              isCurved: true,
-                              curveSmoothness: 0,
-                              color: Theme.of(context).primaryColor,
-                              barWidth: 2.5,
-                              isStrokeCapRound: true,
-                              belowBarData: BarAreaData(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Theme.of(context)
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(
+                                  isCurved: true,
+                                  curveSmoothness: 0,
+                                  color: Theme.of(context).primaryColor,
+                                  barWidth: 2.5,
+                                  isStrokeCapRound: true,
+                                  belowBarData: BarAreaData(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(0.5),
+                                        Colors.transparent
+                                      ],
+                                    ),
+                                    show: true,
+                                    color: Theme.of(context)
                                         .primaryColor
                                         .withOpacity(0.5),
-                                    Colors.transparent
-                                  ],
-                                ),
-                                show: true,
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.5),
+                                  ),
+                                  dotData: FlDotData(show: false),
+                                  spots: spots)
+                            ],
+                            minX: 0,
+                            maxX: 120,
+                            maxY: 105,
+                            minY: -5,
+                          ),
+                          //swapAnimationDuration: const Duration(milliseconds: 250),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          margin: EdgeInsets.all(5),
+                          color: Color.fromRGBO(6, 11, 39, 0.767),
+                          child: Stack(
+                            children: [
+                              Center(
+                                heightFactor: 0,
+                                child: Text('Répartition',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               ),
-                              dotData: FlDotData(show: false),
-                              spots: spots)
-                        ],
-                        minX: 0,
-                        maxX: 120,
-                        maxY: 105,
-                        minY: -5,
+                              LayoutBuilder(builder: (context, constraints) {
+                                double width = constraints.maxWidth;
+                                double height = constraints.maxHeight;
+                                return PieChart(
+                                  PieChartData(
+                                    sections: [
+                                      PieChartSectionData(
+                                        color: const Color(0xff0293ee),
+                                        value: 40,
+                                        title: '40%',
+                                      ),
+                                      PieChartSectionData(
+                                        color: const Color(0xfff8b250),
+                                        value: 30,
+                                        title: '30%',
+                                      ),
+                                      PieChartSectionData(
+                                        color: const Color(0xff845bef),
+                                        value: 15,
+                                        title: '15%',
+                                      ),
+                                      PieChartSectionData(
+                                        color: const Color(0xff13d38e),
+                                        value: 15,
+                                        title: '15%',
+                                      ),
+                                    ],
+                                    centerSpaceRadius: width > height
+                                        ? height * 0.15
+                                        : width * 0.15,
+                                    sectionsSpace: 0,
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
                       ),
-                      //swapAnimationDuration: const Duration(milliseconds: 250),
-                    ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.all(3),
+                          //width: 200,
+                          color: Color.fromRGBO(6, 11, 39, 0.767),
+                          child: Stack(
+                            children: [
+                              Center(
+                                heightFactor: 0,
+                                child: Text('Rant',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              Center(
+                                child: Text("952.56 £",
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.all(3),
+                          //width: 200,
+                          color: Color.fromRGBO(6, 11, 39, 0.767),
+                          child: Stack(
+                            children: [
+                              Center(
+                                heightFactor: 0,
+                                child: Text('Epargne',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              Center(
+                                child: Text("952.56 £",
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-                    color: Color.fromRGBO(6, 11, 39, 0.767),
-                    child: PieChart(
-                      PieChartData(
-                        sections: [
-                          PieChartSectionData(
-                            color: const Color(0xff0293ee),
-                            value: 40,
-                            title: '40%',
-                          ),
-                          PieChartSectionData(
-                            color: const Color(0xfff8b250),
-                            value: 30,
-                            title: '30%',
-                          ),
-                          PieChartSectionData(
-                            color: const Color(0xff845bef),
-                            value: 15,
-                            title: '15%',
-                          ),
-                          PieChartSectionData(
-                            color: const Color(0xff13d38e),
-                            value: 15,
-                            title: '15%',
-                          ),
-                        ],
-                        centerSpaceRadius: 40,
-                        sectionsSpace: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
+                /*Expanded(
                   flex: 2,
                   child: Container(
                     margin: EdgeInsets.all(5),
@@ -381,18 +492,18 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Row(
               children: [
                 Expanded(
                   flex: 4,
                   child: Container(
-                    margin: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
                     color: Color.fromRGBO(6, 11, 39, 0.767),
                     child: DataTable(
                       columns: [
@@ -539,8 +650,8 @@ class _DashboardState extends State<Dashboard> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    margin: EdgeInsets.all(5),
-                    color: Color.fromRGBO(6, 11, 39, 0.767),
+                    margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+                    color: Color.fromRGBO(161, 61, 255, 0.534),
                     child: DataTable(
                       columns: [
                         DataColumn(
