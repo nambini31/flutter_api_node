@@ -3,7 +3,7 @@
 library two_letter_icon;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_api_node/Vues/Base.dart';
+import 'package:flutter_api_node/Vues/autre/Base.dart';
 
 class TwoLetterIcon extends StatelessWidget {
   TwoLetterIcon(this.name);

@@ -49,6 +49,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.0
   awesome_dialog: ^3.0.2
   get: any
+  fl_chart: any
   auto_size_text: 3.0.0
   cached_network_image: 3.2.1
   flutter_animate: 4.1.1+1

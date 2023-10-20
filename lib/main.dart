@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_node/Dependencies/IndexBinding.dart';
 import 'package:flutter_api_node/Vues/IndexVue.dart';
+import 'package:flutter_api_node/routes.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       builder: EasyLoading.init(),
       getPages: [
         GetPage(
-            name: "/Index/materiel",
+            name: Routes.acceuil,
             page: () => const IndexVue(),
             bindings: [IndexBinding()]),
       ],

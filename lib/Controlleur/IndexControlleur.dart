@@ -7,13 +7,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexControlleur extends GetxController {
   var index = 0.obs;
   Rx<DateTime> selectedDate = DateTime.now().obs;
-  @override
-  void onInit() {
-    super.onInit();
-    //reloadClick();
+
+  void userSession() async {
+    final session = await SharedPreferences.getInstance();
+    //await session.setString('myKey', _controller.text);
   }
 }
