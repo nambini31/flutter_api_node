@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_api_node/connect/app_main.dart';
+import 'package:flutter_api_node/connect/main.dart';
+import 'package:flutter_api_node/connect/services/user_services.dart';
 import 'package:get/get.dart';
 
 import '../../../Controlleur/IndexControlleur.dart';
@@ -180,6 +183,43 @@ class Menu extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> AppMain()));
+                      },
+                      style: ButtonStyle(
+                          padding:
+                              MaterialStateProperty.all(EdgeInsets.all(15)),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(0), // Bordure du bouton
+                          )),
+                          backgroundColor: MaterialStatePropertyAll(
+                            Color.fromRGBO(10, 23, 95, 0.897),
+
+                            //Color.fromARGB(255, 243, 63, 146),
+                          )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.account_balance_wallet_outlined),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("COMPTE",
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          SizedBox(
+                            width: 40,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
                         // control.index.value = 0;
                         //Get.forceAppUpdate();
                       },
@@ -244,10 +284,18 @@ class Menu extends StatelessWidget {
                           SizedBox(
                             width: 3,
                           ),
-                          Text("DECONNEXION",
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          InkWell(
+                            onTap: (){
+                                logout().then((value){
+                                    control.index.value = 1;
+                                    Get.forceAppUpdate();
+                                });
+                            },
+                            child: Text("DECONNEXION",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    color: Color.fromARGB(255, 255, 255, 255))),
+                          ),
                         ],
                       ),
                     ),
