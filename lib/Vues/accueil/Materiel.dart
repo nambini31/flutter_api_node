@@ -2,10 +2,16 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_api_node/Controlleur/IndexControlleur.dart';
+import 'package:flutter_api_node/connect/models/api_response.dart';
+import 'package:flutter_api_node/connect/models/user.dart';
+import 'package:flutter_api_node/connect/services/user_services.dart';
+import 'package:flutter_api_node/connect/utils/utils.dart';
+import 'package:flutter_api_node/routes.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Materiel extends StatefulWidget {
   Materiel({Key? key}) : super(key: key);
@@ -15,9 +21,86 @@ class Materiel extends StatefulWidget {
 }
 
 class _MaterielState extends State<Materiel> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    bool loading = false;
+    TextEditingController? emailController;
+    TextEditingController? passwordController;
+    TextEditingController? passwordConfirmController;
 
-  var control = Get.find<IndexControlleur>();
+    var control = Get.find<IndexControlleur>();
+
+    void _loginUser() async {
+            ApiResponse response = await login(emailController!.text, passwordController!.text);
+        if (response.error == null){
+            _saveAndRedirectToHome(response.data as User);
+        }
+        else {
+            setState(() {
+                loading = false;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${response.error}')
+            ));
+        }
+    }
+
+    void _saveAndRedirectToHome(User user) async {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        await pref.setString('token', user.accessToken ?? '');
+        await pref.setString('userId', user.uuid ?? '');
+        await pref.setString('prefill_email', user.email ?? '');
+       // Navigator.of(context).pushNamedAndRemoveUntil(Routes.pageAdmin, (route) => false);
+       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Login success')
+        ));
+        setState(() {
+            loading = false;
+        });
+        control.index.value = 4;
+        Get.forceAppUpdate();
+    }
+
+    void _registerUser() async {
+        ApiResponse response = await register(emailController!.text, passwordController!.text);
+        if (response.error == null){
+            _saveAndRedirectToLogin();
+        }
+        else {
+            setState(() {
+                loading = false;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${response.error}')
+            ));
+        }
+    }
+
+    void _saveAndRedirectToLogin() {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Register success')
+        ));
+        setState(() {
+            loading = false;
+        });
+        control.index.value = 1;
+        Get.forceAppUpdate();
+    }
+
+    @override
+    void initState() {
+        emailController = TextEditingController();
+        passwordController = TextEditingController();
+        passwordConfirmController = TextEditingController();
+        super.initState();
+    }
+
+    @override
+    void dispose() {
+        emailController!.dispose();
+        passwordController!.dispose();
+        passwordConfirmController!.dispose();
+        super.dispose();
+    }
 
   TextEditingController dateController = TextEditingController();
 
@@ -28,7 +111,7 @@ class _MaterielState extends State<Materiel> {
     return GestureDetector(
       onTap: () => {},
       child: Scaffold(
-        key: scaffoldKey,
+        key: formKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
           leadingWidth: 136,
@@ -348,7 +431,7 @@ class _MaterielState extends State<Materiel> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        //controller: textController1,
+                        controller: emailController,
                         autofocus: true,
                         obscureText: false,
                         decoration: const InputDecoration(
@@ -390,7 +473,7 @@ class _MaterielState extends State<Materiel> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        // controller: textController2,
+                        controller: passwordController,
                         autofocus: true,
                         obscureText: false,
                         decoration: const InputDecoration(
@@ -417,12 +500,18 @@ class _MaterielState extends State<Materiel> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ClipRRect(
+                        loading ? const CircularProgressIndicator(color: Utils.primary) :  ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: ElevatedButton(
                             onPressed: () {
-                              control.index.value = 4;
+                            //  control.index.value = 4;
                               Get.forceAppUpdate();
+
+                                setState(() {
+                                    loading = true;
+                                });
+                                _loginUser();
+
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
@@ -770,7 +859,7 @@ class _MaterielState extends State<Materiel> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        //controller: textController1,
+                        controller: emailController,
                         autofocus: true,
                         obscureText: false,
                         decoration: const InputDecoration(
@@ -812,7 +901,7 @@ class _MaterielState extends State<Materiel> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        // controller: textController2,
+                        controller: passwordController,
 
                         autofocus: true,
                         obscureText: false,
@@ -892,27 +981,30 @@ class _MaterielState extends State<Materiel> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              control.index.value = 0;
-                              Get.forceAppUpdate();
-                            },
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                              Color.fromRGBO(11, 16, 114, 0.8),
-                              //Color.fromARGB(255, 243, 63, 146),
-                            )),
-                            child: Text("S'inscrire",
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: Color.fromARGB(255, 255, 255, 255))),
-                          ),
-                        ),
-                      ],
+                            loading ? const CircularProgressIndicator(color: Utils.primary) : ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                        /* control.index.value = 0;
+                                        Get.forceAppUpdate(); */
+                                            setState(() {
+                                                loading = true;
+                                            });
+                                            _registerUser();
+                                        },
+                                        style: ButtonStyle(
+                                            backgroundColor: MaterialStatePropertyAll(
+                                        Color.fromRGBO(11, 16, 114, 0.8),
+                                        )),
+                                        child: Text("S'inscrire",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                color: Color.fromARGB(255, 255, 255, 255))),
+                                    ),
+                                    ),
+                                ],
+                            ),
                     ),
-                  ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
