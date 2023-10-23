@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_node/Dependencies/IndexBinding.dart';
 import 'package:flutter_api_node/Vues/IndexVue.dart';
+import 'package:flutter_api_node/connect/Firebase/firebase_init.dart';
 import 'package:flutter_api_node/routes.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+    await initializeFirebase();
   runApp(const MyApp());
 }
 
