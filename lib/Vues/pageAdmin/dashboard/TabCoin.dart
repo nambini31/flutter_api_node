@@ -17,7 +17,7 @@ class _TabCoinState extends State<TabCoin> {
   @override
   void initState() {
     super.initState();
-    final coinModelStream = getCryptoData();
+    final coinModelStream = getCryptoData(coinDataList);
 
     coinModelStream.listen((coinModel) {
       // Mettez à jour la liste de données avec les nouvelles valeurs
@@ -118,7 +118,7 @@ class _TabCoinState extends State<TabCoin> {
                 ),
               )),
               DataCell(Text(
-                '0.05 £', // Vous pouvez remplacer cette valeur par les données correctes si nécessaire
+                '0.5 £', // Vous pouvez remplacer cette valeur par les données correctes si nécessaire
                 style: GoogleFonts.getFont(
                   'Roboto',
                   color: Colors.white,

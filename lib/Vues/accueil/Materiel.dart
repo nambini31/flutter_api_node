@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
-import 'package:flutter_html/flutter_html.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../connect/Controlleur/IndexControlleur.dart';
@@ -158,7 +157,7 @@ class _MaterielState extends State<Materiel> {
           Positioned(
             left: MediaQuery.of(context).size.width / 5,
             right: MediaQuery.of(context).size.width / 4,
-            top: MediaQuery.of(context).size.width / 3.3,
+            top: 420,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
               child: Image.asset(
