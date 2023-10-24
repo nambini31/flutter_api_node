@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexControlleur extends GetxController {
   var index = 0.obs;
+  var verifDrawer = 0.obs;
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
   void userSession() async {

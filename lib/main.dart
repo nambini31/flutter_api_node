@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_node/Dependencies/IndexBinding.dart';
+import 'package:flutter_api_node/Vues/Dependencies/IndexBinding.dart';
 import 'package:flutter_api_node/Vues/IndexVue.dart';
 import 'package:flutter_api_node/connect/Firebase/firebase_init.dart';
 import 'package:flutter_api_node/routes.dart';

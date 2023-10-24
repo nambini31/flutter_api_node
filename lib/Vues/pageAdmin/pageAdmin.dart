@@ -1,20 +1,40 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_api_node/Controlleur/IndexControlleur.dart';
-import 'package:flutter_api_node/Controlleur/pageAdminControlleur.dart';
-import 'package:flutter_api_node/Vues/accueil/Materiel.dart';
 import 'package:flutter_api_node/Vues/pageAdmin/dashboard/Dashboard.dart';
 import 'package:flutter_api_node/Vues/pageAdmin/menu/menu.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PageAdmin extends GetView<PageAdminControlleur> {
+import '../../connect/Controlleur/IndexControlleur.dart';
+
+class PageAdmin extends StatefulWidget {
   PageAdmin({super.key});
-  final GlobalKey parentKey = GlobalKey();
+
+  @override
+  State<PageAdmin> createState() => _PageAdminState();
+}
+
+class _PageAdminState extends State<PageAdmin> {
+  //final GlobalKey parentKey = GlobalKey();
+  var control = Get.find<IndexControlleur>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+    if (control.verifDrawer.value == 0) {
+      control.verifDrawer.value == 1;
+    } else {
+      control.verifDrawer.value == 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      drawer: Menu(),
+      key: _scaffoldKey,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: AppBar(
@@ -26,31 +46,38 @@ class PageAdmin extends GetView<PageAdminControlleur> {
                   fontWeight: FontWeight.w600,
                   fontSize: 15),
             ),
-            key: parentKey,
-            leadingWidth: MediaQuery.sizeOf(context).height * 0.24,
+            leadingWidth: 150,
             backgroundColor: Color.fromRGBO(8, 15, 54, 1),
             leading: Row(
               children: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(10, 100),
-                      elevation: 0, // Désactive l'élévation
-                      backgroundColor: Colors.transparent,
-                      // Couleur d'arrière-plan du bouton
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(0), // Bordure du bouton
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Icon(Icons.arrow_back_ios_new_rounded)),
+                (width > 1000)
+                    ? SizedBox(
+                        width: 6,
+                      )
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(10, 100),
+                          elevation: 0, // Désactive l'élévation
+                          backgroundColor: Colors.transparent,
+                          // Couleur d'arrière-plan du bouton
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(0), // Bordure du bouton
+                          ),
+                        ),
+                        onPressed: () {
+                          _openDrawer();
+                          //print("object");
+                        },
+                        child: Icon(Icons.arrow_back_ios_new_rounded)),
                 Padding(
                   padding: const EdgeInsets.only(left: 0),
                   child: Container(
                     child: Image.asset(
                       'lib/assets/images/389619943_1953096931750116_809664346407533714_n1.png',
                       fit: BoxFit.scaleDown,
-                      height: 33,
+                      height: 35,
+                      width: 65,
                     ),
                   ),
                 ),
@@ -105,22 +132,26 @@ class PageAdmin extends GetView<PageAdminControlleur> {
               )
             ],
           )),
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            opacity: 1,
-            fit: BoxFit.fill,
-            image: Image.asset(
-              'lib/assets/images/fond.png',
-            ).image,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.sizeOf(context).height +
+              6 -
+              AppBar().preferredSize.height,
+          width: MediaQuery.sizeOf(context).width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              opacity: 1,
+              fit: BoxFit.fill,
+              image: Image.asset(
+                'lib/assets/images/fond.png',
+              ).image,
+            ),
           ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [Menu(), Dashboard()],
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [(width < 1000) ? SizedBox() : Menu(), Dashboard()],
+          ),
         ),
       ),
     );

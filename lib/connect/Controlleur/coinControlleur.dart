@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import '../Model/coinModel.dart';
+import '../models/coinModel.dart';
 
 void main() {
   final coinModelStream = getCryptoData();
-  
 
   coinModelStream.listen((coinModel) {
     print('Prix du Bitcoin (EUR): ${coinModel.price}');
@@ -31,6 +30,7 @@ Future<CoinModel> fetchCryptoData() async {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      print(data);
       final currentPrice =
           data['market_data']['current_price']['eur']; // Prix actuel en euros
       final volume =
@@ -49,4 +49,3 @@ Future<CoinModel> fetchCryptoData() async {
         0.0, 0.0, 0.0); // Gestion d'erreur, renvoie des valeurs par défaut
   }
 }
- 
