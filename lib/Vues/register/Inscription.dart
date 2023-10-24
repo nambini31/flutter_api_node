@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_api_node/connect/Controlleur/Inscription/inscriptionController.dart';
+import 'package:flutter_api_node/connect/models/inscription/Inscription_model.dart';
 import '../../connect/Controlleur/IndexControlleur.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,8 +21,15 @@ class Inscription extends StatefulWidget {
 
 class _InscriptionState extends State<Inscription> {
   var control = Get.find<IndexControlleur>();
-  TextEditingController dateController = TextEditingController();
-
+   //Instance pour l'enregistrement a la base sam
+  TextEditingController dateController = TextEditingController(); 
+  TextEditingController lieuNaissanceController = TextEditingController();
+  TextEditingController nomController = TextEditingController();
+  TextEditingController prenomController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController motDePasseController = TextEditingController();
+  TextEditingController numeroTelephoneController = TextEditingController();
+   //Instance pour l'enregistrement a la base sam
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,7 +135,7 @@ class _InscriptionState extends State<Inscription> {
                           child: Container(
                             height: 35,
                             child: TextFormField(
-                              //controller: _model.textController1,
+                              controller: prenomController,
                               autofocus: true,
                               obscureText: false,
                               decoration: const InputDecoration(
@@ -151,7 +161,7 @@ class _InscriptionState extends State<Inscription> {
                           child: Container(
                             height: 35,
                             child: TextFormField(
-                              //controller: _model.textController2,
+                              controller: nomController,
                               autofocus: true,
                               obscureText: false,
                               decoration: const InputDecoration(
@@ -258,7 +268,7 @@ class _InscriptionState extends State<Inscription> {
                           child: Container(
                             height: 35,
                             child: TextFormField(
-                              //controller: _model.textController4,
+                              controller: lieuNaissanceController,
                               autofocus: true,
                               obscureText: false,
                               decoration: const InputDecoration(
@@ -295,7 +305,7 @@ class _InscriptionState extends State<Inscription> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        //controller: textController1,
+                        controller: emailController,
                         autofocus: true,
                         obscureText: false,
                         decoration: const InputDecoration(
@@ -337,7 +347,7 @@ class _InscriptionState extends State<Inscription> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        // controller: textController2,
+                       controller: motDePasseController,
 
                         autofocus: true,
                         obscureText: false,
@@ -380,7 +390,7 @@ class _InscriptionState extends State<Inscription> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        // controller: textController2,
+                         controller: numeroTelephoneController,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -421,6 +431,7 @@ class _InscriptionState extends State<Inscription> {
                           borderRadius: BorderRadius.circular(5),
                           child: ElevatedButton(
                             onPressed: () {
+                              registerUser();
                               control.index.value = 0;
                               Get.forceAppUpdate();
                             },
@@ -495,6 +506,29 @@ class _InscriptionState extends State<Inscription> {
       ),
     );
   }
+
+     //Instance pour l'enregistrement a la base sam
+  void registerUser() async {
+   
+    InscriptionModel inscription = InscriptionModel(
+      nom: nomController.text,
+      prenom: prenomController.text,
+      dateNaissance: DateFormat("dd/MM/yyyy").parse(dateController.text),
+      lieuNaissance: lieuNaissanceController.text,
+      email: emailController.text,
+      motDePasse: motDePasseController.text,
+      numeroTelephone: numeroTelephoneController.text,
+    );
+
+    InscriptionController inscriptionController = InscriptionController();
+    User? user = await inscriptionController.registerWithEmailAndPassword(
+        inscription, 'userWinedge');
+
+    if (user != null) {
+    } else {}
+  }
+
+       //Instance pour l'enregistrement a la base sam
 
   void dateChange() async {
     final DateTime? picked = await showDatePicker(
