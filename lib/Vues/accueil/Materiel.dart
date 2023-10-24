@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
+import 'package:flutter_html/flutter_html.dart';
+import 'package:video_player/video_player.dart';
+
 import '../../connect/Controlleur/IndexControlleur.dart';
 import 'package:flutter_api_node/Vues/login/Login.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,22 @@ class Materiel extends StatefulWidget {
 }
 
 class _MaterielState extends State<Materiel> {
+  late VideoPlayerController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    chargeAnim();
+  }
+
+  void chargeAnim() {
+    _controller = VideoPlayerController.asset('assets/images/nicos.webm');
+    _controller.setLooping(true);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   var control = Get.find<IndexControlleur>();
@@ -30,73 +49,73 @@ class _MaterielState extends State<Materiel> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leadingWidth: 136,
-          backgroundColor: const Color(0xFF07031B),
+          leadingWidth: 100,
+          backgroundColor: Color.fromARGB(255, 2, 1, 7),
           automaticallyImplyLeading: false,
           leading: Image.asset(
-            'lib/assets/images/389619943_1953096931750116_809664346407533714_n1.png',
+            'assets/images/389619943_1953096931750116_809664346407533714_n1.png',
             fit: BoxFit.fitWidth,
           ),
           actions: [
             Image.asset(
-              'lib/assets/images/téléchargement1.png',
-              width: 100,
+              'assets/images/téléchargement1.png',
+              width: 45,
               fit: BoxFit.contain,
             ),
+            SizedBox(
+              width: 6,
+            )
           ],
           centerTitle: false,
-          elevation: 2,
+          elevation: 0,
         ),
         body: Container(
           height:
               MediaQuery.sizeOf(context).height - AppBar().preferredSize.height,
           child: SafeArea(
             top: true,
-            child: Opacity(
-              opacity: 0.9,
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: Image.asset(
-                      'lib/assets/images/Best-blockchain-ETFs1.png',
-                    ).image,
-                  ),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: Image.asset(
+                    filterQuality: FilterQuality.medium,
+                    'assets/images/koloina.png',
+                  ).image,
                 ),
-                child: SingleChildScrollView(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    double width = MediaQuery.sizeOf(context).width;
-                    double height = MediaQuery.sizeOf(context).height;
-                    if (constraints.maxWidth < 600) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Titre(height: height, width: width),
-                          (control.index.value == 0)
-                              ? animation(context)
-                              : (control.index.value == 1
-                                  ? Login(height: height, width: width)
-                                  : Inscription(height: height, width: width)),
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Titre(height: height, width: width),
-                          (control.index.value == 0)
-                              ? animation(context)
-                              : (control.index.value == 1
-                                  ? Login(height: height, width: width)
-                                  : Inscription(height: height, width: width)),
-                        ],
-                      );
-                    }
-                  }),
-                ),
+              ),
+              child: SingleChildScrollView(
+                child: LayoutBuilder(builder: (context, constraints) {
+                  double width = MediaQuery.sizeOf(context).width;
+                  double height = MediaQuery.sizeOf(context).height;
+                  if (constraints.maxWidth < 600) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Titre(height: height, width: width),
+                        (control.index.value == 0)
+                            ? animation(context)
+                            : (control.index.value == 1
+                                ? Login(height: height, width: width)
+                                : Inscription(height: height, width: width)),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Titre(height: height, width: width),
+                        (control.index.value == 0)
+                            ? animation(context)
+                            : (control.index.value == 1
+                                ? Login(height: height, width: width)
+                                : Inscription(height: height, width: width)),
+                      ],
+                    );
+                  }
+                }),
               ),
             ),
           ),
@@ -106,50 +125,66 @@ class _MaterielState extends State<Materiel> {
   }
 
   Container animation(BuildContext context) {
+    _controller.play();
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width / 1.84,
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width / 3,
-            top: 150,
+              left: MediaQuery.of(context).size.width / 11,
+              right: MediaQuery.of(context).size.width / 11,
+              top: MediaQuery.of(context).size.width / 28,
+              child: _controller.value.isInitialized
+                  ? Container(
+                      height: 450,
+                      width: 450,
+                      child: VideoPlayer(_controller),
+                    )
+                  : Container()),
+          Positioned(
+            left: MediaQuery.of(context).size.width / 2.9,
+            right: MediaQuery.of(context).size.width / 9,
+            top: 230,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
               child: Image.asset(
-                'lib/assets/images/380594703_686707480233160_4886927929347706727_n1.png',
-                height: MediaQuery.of(context).size.width / 10,
+                'assets/images/380594703_686707480233160_4886927929347706727_n1.png',
+                height: MediaQuery.of(context).size.width / 11.5,
                 fit: BoxFit.fitHeight,
               ),
             ),
           ),
           Positioned(
             left: MediaQuery.of(context).size.width / 5,
-            top: 350,
+            right: MediaQuery.of(context).size.width / 4,
+            top: MediaQuery.of(context).size.width / 3.3,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
               child: Image.asset(
-                'lib/assets/images/380438123_287128587577059_5360580875471552781_n.png',
+                'assets/images/380438123_287128587577059_5360580875471552781_n.png',
                 fit: BoxFit.contain,
-                height: MediaQuery.of(context).size.width / 17,
+                height: MediaQuery.of(context).size.width / 20,
               ),
             ),
           ),
           Positioned(
             left: MediaQuery.of(context).size.width / 9,
+            right: MediaQuery.of(context).size.width / 2.9,
             top: 80,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
               child: Image.asset(
-                'lib/assets/images/380434028_290049557229574_8172786610973553296_n.png',
-                height: MediaQuery.of(context).size.width / 10,
+                'assets/images/380434028_290049557229574_8172786610973553296_n.png',
+                height: MediaQuery.of(context).size.width / 12,
                 fit: BoxFit.contain,
               ),
             ),
           ),
           Positioned(
-            left: MediaQuery.of(context).size.width / 12,
-            top: 200,
+            left: MediaQuery.of(context).size.width / 15,
+            right: MediaQuery.of(context).size.width / 3,
+            top: 250,
             child: Transform(
               transform: Matrix4.identity()
                 ..translate(0.0, 0.0)
@@ -161,7 +196,7 @@ class _MaterielState extends State<Materiel> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width / 10,
-                  height: 185.07,
+                  height: 140,
                   decoration: const ShapeDecoration(
                     gradient: LinearGradient(
                       begin: Alignment(0.00, -1.00),

@@ -74,7 +74,7 @@ class _PageAdminState extends State<PageAdmin> {
                   padding: const EdgeInsets.only(left: 0),
                   child: Container(
                     child: Image.asset(
-                      'lib/assets/images/389619943_1953096931750116_809664346407533714_n1.png',
+                      'assets/images/389619943_1953096931750116_809664346407533714_n1.png',
                       fit: BoxFit.scaleDown,
                       height: 35,
                       width: 65,
@@ -123,7 +123,7 @@ class _PageAdminState extends State<PageAdmin> {
                     image: DecorationImage(
                       fit: BoxFit.contain,
                       image: Image.asset(
-                        'lib/assets/images/nico.jpg',
+                        'assets/images/nico.jpg',
                       ).image,
                     ),
                     shape: BoxShape.circle,
@@ -143,7 +143,7 @@ class _PageAdminState extends State<PageAdmin> {
               opacity: 1,
               fit: BoxFit.fill,
               image: Image.asset(
-                'lib/assets/images/fond.png',
+                'assets/images/fond.png',
               ).image,
             ),
           ),

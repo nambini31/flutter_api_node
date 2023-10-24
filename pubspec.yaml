@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  
   http:
   animated_splash_screen: ^1.1.0
   mysql1: ^0.20.0
@@ -38,7 +38,7 @@ dependencies:
   hive: null
   hive_flutter: null
   path_provider: null
-  
+  video_player: ^2.2.15
   flutter_slidable: null
   image_picker: ^0.8.6
   flutter_barcode_scanner: ^2.0.0
@@ -57,6 +57,7 @@ dependencies:
   font_awesome_flutter: 10.1.0
   from_css_color: 2.0.0
   go_router: 7.1.1
+  
   google_fonts: 4.0.3
   intl: 0.18.0
   json_path: 0.6.2
@@ -78,11 +79,13 @@ dependencies:
   firebase_core: ^2.19.0
   firebase_auth: ^4.11.1
   cloud_firestore: ^4.11.0
+  cupertino_icons: ^1.0.2
+  flutter_html: ^3.0.0-beta.2
+  image: ^4.1.3
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -108,8 +111,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - lib/assets/images/
-
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
 
