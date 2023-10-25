@@ -13,3 +13,10 @@ class HistoricalData {
     return HistoricalData(prices: prices);
   }
 }
+class ChartData {
+  final DateTime timestamp;
+  final double price;
+
+  ChartData(this.timestamp, this.price);
+}
+

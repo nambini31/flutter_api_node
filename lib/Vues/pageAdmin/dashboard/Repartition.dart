@@ -93,7 +93,7 @@ class _RepartitionState extends State<Repartition> {
                         )),
                   ),
                   Center(
-                    child: Text("952.56 £",
+                    child: Text("---€",
                         style: GoogleFonts.getFont(
                           'Roboto',
                           color: Colors.white,
@@ -124,7 +124,7 @@ class _RepartitionState extends State<Repartition> {
                         )),
                   ),
                   Center(
-                    child: Text("952.56 £",
+                    child: Text("---€",
                         style: GoogleFonts.getFont(
                           'Roboto',
                           color: Colors.white,

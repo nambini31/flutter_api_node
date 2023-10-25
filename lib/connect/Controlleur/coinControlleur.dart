@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_api_node/connect/models/historical_model.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
 import '../models/coinModel.dart';
 
@@ -52,15 +53,16 @@ Future<CoinModel> fetchCryptoData() async {
   }
 }
 
-Future<List<List<num>>> fetchHistoricalData() async {
+Future<List<ChartData>> fetchHistoricalData() async {
   final coinId = 'bitcoin';
-  final days = '365'; // 365 jours d'historique
+  final DateTime now = DateTime.now();
+  final start = DateTime(2023, 9, 1);
+  final days = now.difference(start).inDays; // Calcul du nombre de jours
   final interval = 'daily'; // Interval quotidien
-
   final Uri url = Uri.https(
     'api.coingecko.com',
     '/api/v3/coins/$coinId/market_chart',
-    {'vs_currency': 'eur', 'days': days, 'interval': interval},
+    {'vs_currency': 'eur', 'days': days.toString(), 'interval': interval},
   );
 
   final response = await http.get(url);
@@ -68,16 +70,17 @@ Future<List<List<num>>> fetchHistoricalData() async {
   if (response.statusCode == 200) {
     final dynamic data = json.decode(response.body);
     if (data is Map<String, dynamic> && data.containsKey('prices')) {
-      final historicalData = HistoricalData.fromJson(data);
-      return historicalData.prices;
+      final historicalData = List<ChartData>.from(data['prices'].map((priceData) {
+        final timestamp = DateTime.fromMillisecondsSinceEpoch(priceData[0]);
+        final price = priceData[1].toDouble();
+        return ChartData(timestamp, price);
+      }));
+      return historicalData;
     } else {
       throw Exception("Les données de l'historique ne sont pas valides.");
     }
   } else {
-    throw Exception(
-        'Erreur de chargement de données historiques: ${response.statusCode}');
+    throw Exception('Erreur de chargement de données historiques: ${response.statusCode}');
   }
 }
-
-
 

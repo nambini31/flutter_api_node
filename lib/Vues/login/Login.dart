@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_api_node/connect/Controlleur/login/loginController.dart';
 import '../../connect/Controlleur/IndexControlleur.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +18,21 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   var control = Get.find<IndexControlleur>();
+  LoginController _authController = LoginController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    // c'est pour éviter les fuites de mémoire.
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +103,7 @@ class _LoginState extends State<Login> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        //controller: textController1,
+                        controller: _emailController,
                         autofocus: true,
                         obscureText: false,
                         decoration: const InputDecoration(
@@ -128,9 +145,8 @@ class _LoginState extends State<Login> {
                     child: Container(
                       height: 35,
                       child: TextFormField(
-                        // controller: textController2,
-                        autofocus: true,
-                        obscureText: false,
+                        controller: _passwordController,
+                        obscureText: true,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.all(14),
                           hintText: 'Votre mot de passe',
@@ -158,9 +174,22 @@ class _LoginState extends State<Login> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: ElevatedButton(
-                            onPressed: () {
-                              control.index.value = 4;
-                              Get.forceAppUpdate();
+                            onPressed: () async {
+                            
+                              String email = _emailController
+                                  .text; 
+                              String password = _passwordController
+                                  .text; 
+                              User? user = await _authController
+                                  .signInWithEmailAndPassword(email, password);
+
+                              if (user != null) {
+                               
+                                control.index.value = 4;
+                                Get.forceAppUpdate();
+                              } else {
+                               
+                              }
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(

@@ -91,7 +91,7 @@ class _TabCoinState extends State<TabCoin> {
                 ),
               )),
               DataCell(Text(
-                '£ ${coinModel.volume.toStringAsFixed(2)}', // Utilisez le volume de la cryptomonnaie
+                '€ ${coinModel.volume.toStringAsFixed(2)}', // Utilisez le volume de la cryptomonnaie
                 style: GoogleFonts.getFont(
                   'Roboto',
                   color: Colors.white,
@@ -100,7 +100,7 @@ class _TabCoinState extends State<TabCoin> {
                 ),
               )),
               DataCell(Text(
-                '£ ${coinModel.price.toStringAsFixed(6)}', // Utilisez le prix de la cryptomonnaie
+                '€ ${coinModel.price.toStringAsFixed(2)}', // Utilisez le prix de la cryptomonnaie
                 style: GoogleFonts.getFont(
                   'Roboto',
                   color: Colors.white,
@@ -118,7 +118,7 @@ class _TabCoinState extends State<TabCoin> {
                 ),
               )),
               DataCell(Text(
-                '0.5 £', // Vous pouvez remplacer cette valeur par les données correctes si nécessaire
+                '1 239.35 €', // Vous pouvez remplacer cette valeur par les données correctes si nécessaire
                 style: GoogleFonts.getFont(
                   'Roboto',
                   color: Colors.white,
