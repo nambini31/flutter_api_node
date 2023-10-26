@@ -3,6 +3,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_api_node/connect/Controlleur/coinControlleur.dart';
 import 'package:flutter_api_node/connect/models/historical_model.dart';
 
+
+
 class Performance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,11 @@ class Performance extends StatelessWidget {
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
           return Text('Aucune donnée disponible.');
         } else {
+          // Mettez à jour les données pour diviser le prix par 0.05
+          final modifiedData = snapshot.data!.map((data) {
+            return ChartData(data.timestamp, data.price * 0.05);
+          }).toList();
+
           return Flexible(
             flex: 3,
             fit: FlexFit.tight,
@@ -36,7 +43,7 @@ class Performance extends StatelessWidget {
                       ),
                     ),
                   ),
-                  LineChartWidget(historicalData: snapshot.data!),
+                  LineChartWidget(historicalData: modifiedData),
                 ],
               ),
             ),
@@ -47,18 +54,24 @@ class Performance extends StatelessWidget {
   }
 }
 
+
 class LineChartWidget extends StatelessWidget {
   final List<ChartData> historicalData;
+  
+
 
   LineChartWidget({required this.historicalData});
+  
 
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      plotAreaBorderWidth: 0,
+      tooltipBehavior: TooltipBehavior(enable: true),
       primaryXAxis: DateTimeAxis(),
       primaryYAxis: NumericAxis(
-        minimum: 20000, // Valeur minimale du prix
-        maximum: 35000, // Valeur maximale du prix
+        minimum: 2000, // Valeur minimale du prix
+        maximum: 1000, // Valeur maximale du prix
       ),
       series: <LineSeries<ChartData, DateTime>>[
         LineSeries<ChartData, DateTime>(
@@ -68,6 +81,7 @@ class LineChartWidget extends StatelessWidget {
           color: const Color.fromARGB(255, 4, 79, 141), // Personnalisez la couleur de la ligne
         ),
       ],
+      
     );
   }
 }
