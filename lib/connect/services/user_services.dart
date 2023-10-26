@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_api_node/connect/models/api_response.dart';
-import 'package:flutter_api_node/connect/models/user.dart';
+import 'package:flutter_api_node/connect/models/user_bridge.dart';
 import 'package:flutter_api_node/connect/utils/config.dart';
 
 // Login
@@ -24,7 +24,7 @@ Future<ApiResponse> login (String email, String password) async {
         switch(response.statusCode){
             case 200:
                 try {
-                    apiResponse.data = User.fromJson(jsonDecode(response.body));
+                    apiResponse.data = UserBridge.fromJson(jsonDecode(response.body));
                 } catch (e) {
                     print("Error parsing JSON: $e");
                 }
@@ -69,7 +69,7 @@ Future<ApiResponse> register (String email, String password) async {
         switch(response.statusCode){
             case 201:
                 try {
-                    apiResponse.data = User.fromJson(jsonDecode(response.body));
+                    apiResponse.data = UserBridge.fromJson(jsonDecode(response.body));
                 } catch (e) {
                     print("Error parsing JSON: $e");
                 }
