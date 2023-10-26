@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_api_node/connect/models/api_response.dart';
 import 'package:flutter_api_node/connect/models/inscription/Inscription_model.dart';
+import 'package:flutter_api_node/connect/services/user_services.dart';
 
 class InscriptionController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,6 +34,8 @@ class InscriptionController {
         'numeroTelephone': inscription.numeroTelephone,
 
       });
+
+      await register(inscription.email, inscription.motDePasse);
 
       print('Données enregistrées dans Firestore avec succès');
     } catch (e) {

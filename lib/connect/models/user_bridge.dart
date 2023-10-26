@@ -1,10 +1,10 @@
-class User {
+class UserBridge {
     String? uuid;
     String? email;
     String? accessToken;
     String? expiresAt;
 
-    User({
+    UserBridge({
         this.uuid,
         this.email,
         this.accessToken,
@@ -13,8 +13,8 @@ class User {
 
 
     // function to convert json data to user model
-    factory User.fromJson(Map<String, dynamic> json) {
-        return User(
+    factory UserBridge.fromJson(Map<String, dynamic> json) {
+        return UserBridge(
             uuid: json['user']['uuid'] ?? '',
             email: json['user']['email'] ?? '',
             accessToken: json['access_token'] ?? '',

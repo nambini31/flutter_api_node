@@ -18,20 +18,20 @@ class Materiel extends StatefulWidget {
 }
 
 class _MaterielState extends State<Materiel> {
-  late VideoPlayerController _controller;
+ // late VideoPlayerController _controller;
   @override
   void initState() {
     // TODO: implement initState
 
     super.initState();
-    chargeAnim();
+    // chargeAnim();
   }
 
   void chargeAnim() {
-    _controller = VideoPlayerController.asset('assets/images/nicos.webm');
+    /* _controller = VideoPlayerController.asset('assets/images/nicos.webm');
     _controller.setLooping(true);
     _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
+    _controller.play(); */
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -124,13 +124,13 @@ class _MaterielState extends State<Materiel> {
   }
 
   Container animation(BuildContext context) {
-    _controller.play();
+   // _controller.play();
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width / 1.84,
       child: Stack(
         children: [
-          Positioned(
+          /* Positioned(
               left: MediaQuery.of(context).size.width / 11,
               right: MediaQuery.of(context).size.width / 11,
               top: MediaQuery.of(context).size.width / 28,
@@ -140,7 +140,12 @@ class _MaterielState extends State<Materiel> {
                       width: 450,
                       child: VideoPlayer(_controller),
                     )
-                  : Container()),
+                  : Container()), */
+                  Positioned(
+              left: MediaQuery.of(context).size.width / 11,
+              right: MediaQuery.of(context).size.width / 11,
+              top: MediaQuery.of(context).size.width / 28,
+              child:  Container()),
           Positioned(
             left: MediaQuery.of(context).size.width / 2.9,
             right: MediaQuery.of(context).size.width / 9,
