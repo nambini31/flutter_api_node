@@ -78,7 +78,8 @@ class LineChartWidget extends StatelessWidget {
           dataSource: historicalData,
           xValueMapper: (ChartData data, _) => data.timestamp,
           yValueMapper: (ChartData data, _) => data.price,
-          color: const Color.fromARGB(255, 4, 79, 141), // Personnalisez la couleur de la ligne
+          color: const Color.fromARGB(255, 4, 79, 141),
+           width: 4.0, // Personnalisez la couleur de la ligne
         ),
       ],
       

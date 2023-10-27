@@ -15,54 +15,54 @@ class TabCoin extends StatefulWidget {
 class _TabCoinState extends State<TabCoin> {
   List<CoinModel> coinDataList = [];
   List<DataRow> additionalRows = [
-  DataRow(cells: [
-    DataCell(Text(
-      'WT',
-      style: GoogleFonts.getFont(
-        'Roboto',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    )),
-    DataCell(Text(
-      '0',
-      style: GoogleFonts.getFont(
-        'Roboto',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    )),
-    DataCell(Text(
-      '0',
-      style: GoogleFonts.getFont(
-        'Roboto',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    )),
-    DataCell(Text(
-      '0',
-      style: GoogleFonts.getFont(
-        'Roboto',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    )),
-    DataCell(Text(
-      '0',
-      style: GoogleFonts.getFont(
-        'Roboto',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    )),
-  ]),
-];
+    DataRow(cells: [
+      DataCell(Text(
+        'WT',
+        style: GoogleFonts.getFont(
+          'Roboto',
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
+      DataCell(Text(
+        '0',
+        style: GoogleFonts.getFont(
+          'Roboto',
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
+      DataCell(Text(
+        '0',
+        style: GoogleFonts.getFont(
+          'Roboto',
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
+      DataCell(Text(
+        '0',
+        style: GoogleFonts.getFont(
+          'Roboto',
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
+      DataCell(Text(
+        '0',
+        style: GoogleFonts.getFont(
+          'Roboto',
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
+    ]),
+  ];
   @override
   void initState() {
     super.initState();
@@ -129,61 +129,64 @@ class _TabCoinState extends State<TabCoin> {
                     ))),
           ],
           rows: [
-        ...coinDataList.map((coinModel) {
-          double volumeInMillions = coinModel.volume / 1000000;
-          String volumeText = '€ ${volumeInMillions.toStringAsFixed(2)}M';
+            ...coinDataList.map((coinModel) {
+              double volumeInMillions = coinModel.volume / 1000000;
+              String volumeText = '€ ${volumeInMillions.toStringAsFixed(2)}M';
 
-          return DataRow(cells: [
-            DataCell(Text(
-              'Bitcoin',
-              style: GoogleFonts.getFont(
-                'Roboto',
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            DataCell(Text(
-              volumeText,
-              style: GoogleFonts.getFont(
-                'Roboto',
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            DataCell(Text(
-              '€ ${coinModel.price.toStringAsFixed(2)}',
-              style: GoogleFonts.getFont(
-                'Roboto',
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            DataCell(Text(
-              '${coinModel.percentChange24h.toStringAsFixed(2)}%',
-              style: GoogleFonts.getFont(
-                'Roboto',
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            DataCell(Text(
-              '1 239.35 €',
-              style: GoogleFonts.getFont(
-                'Roboto',
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-          ]);
-        }).toList(),
-        // Ajoutez les lignes supplémentaires après celles de coinDataList
-        ...additionalRows,
-      ],
+              return DataRow(cells: [
+                DataCell(Text(
+                  'Bitcoin',
+                  style: GoogleFonts.getFont(
+                    'Roboto',
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                DataCell(Text(
+                  volumeText,
+                  style: GoogleFonts.getFont(
+                    'Roboto',
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                DataCell(Text(
+                  '€ ${coinModel.price.toStringAsFixed(2)}',
+                  style: GoogleFonts.getFont(
+                    'Roboto',
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                DataCell(
+                  Text(
+                    '${coinModel.percentChange24h.toStringAsFixed(2)}%',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: coinModel.percentChange24h >= 0
+                          ? Colors.green
+                          : Colors.red,
+                    ),
+                  ),
+                ),
+                DataCell(Text(
+                  '1 239.35 €',
+                  style: GoogleFonts.getFont(
+                    'Roboto',
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ]);
+            }).toList(),
+            // Ajoutez les lignes supplémentaires après celles de coinDataList
+            ...additionalRows,
+          ],
         ),
       ),
     );

@@ -33,7 +33,7 @@ class _TabGainState extends State<TabGain> {
       double calculatedPortefeuille = 1239.35 + calculatedGain;
 
       // Calcul du rapport
-      double calculatedRapport = calculatedGain / 1239.35;
+      double calculatedRapport = calculatedGain * 100 / 1239.35;
       double equivalence = calculatedPortefeuille / coinModel.price;
       setState(() {
         gain = calculatedGain;
