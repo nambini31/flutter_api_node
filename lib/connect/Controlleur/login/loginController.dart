@@ -13,10 +13,6 @@ class LoginController {
             email: email,
             password: password,
         );
-        ApiResponse response = await login(email, password);
-        if(response.error == null){
-            _saveDataUser(response.data as UserBridge);
-        }
         // print(response.error);
         return userCredential.user;
         } catch (e) {
@@ -31,12 +27,5 @@ class LoginController {
         await pref.remove('token');
         await pref.remove('userId');
         await pref.remove('prefill_email');
-    }
-
-    void _saveDataUser(UserBridge user) async {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        await pref.setString('token', user.accessToken ?? '');
-        await pref.setString('userId', user.uuid ?? '');
-        await pref.setString('prefill_email', user.email ?? '');
     }
 }

@@ -3,8 +3,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_api_node/Vues/choix/choix.dart';
 import 'package:flutter_api_node/connect/Controlleur/Inscription/inscriptionController.dart';
+import 'package:flutter_api_node/connect/models/api_response.dart';
 import 'package:flutter_api_node/connect/models/inscription/Inscription_model.dart';
+import 'package:flutter_api_node/connect/services/connect_bridge_services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../connect/Controlleur/IndexControlleur.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -431,8 +435,9 @@ class _InscriptionState extends State<Inscription> {
                           borderRadius: BorderRadius.circular(5),
                           child: ElevatedButton(
                             onPressed: () {
-                              registerUser();
-                              control.index.value = 0;
+                                registerUser();
+                              // control.index.value = 0;
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Choix(),));
                               Get.forceAppUpdate();
                             },
                             style: const ButtonStyle(
@@ -546,4 +551,5 @@ class _InscriptionState extends State<Inscription> {
           DateFormat("dd/MM/yyyy").format(control.selectedDate.value);
     }
   }
+
 }
