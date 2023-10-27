@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter_api_node/Vues/accueil/Titre.dart';
-import 'package:flutter_api_node/Vues/underConstruction/under_%20construction.dart';
 import 'package:flutter_api_node/connect/models/api_response.dart';
 import 'package:flutter_api_node/connect/services/connect_bridge_services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,33 +13,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../register/Inscription.dart';
 
-class Choix extends StatefulWidget {
-  Choix({Key? key}) : super(key: key);
+class UnderContruction extends StatefulWidget {
+  UnderContruction({Key? key}) : super(key: key);
 
   @override
-  State<Choix> createState() => _ChoixState();
+  State<UnderContruction> createState() => _UnderContructionState();
 }
 
-class _ChoixState extends State<Choix> {
+class _UnderContructionState extends State<UnderContruction> {
 
 
   var control = Get.find<IndexControlleur>();
-
-  void _connectToBridgeToRedirect() async{
-        ApiResponse apiResponse = await connectToBridge();
-        if(apiResponse.error == null){
-            Map<String, dynamic>? dataMap = apiResponse.data as Map<String, dynamic>?;
-            String redirectUrl = dataMap!['redirect_url'];
-            final Uri uri = Uri.parse(redirectUrl);
-            _launchURL(uri);
-        }
-    }
-
-    Future<void> _launchURL(Uri url) async {
-        if(!await launchUrl(url)){
-            throw 'Could not launch $url';
-        }
-    }
 
   @override
   Widget build(BuildContext context) {
@@ -95,36 +78,13 @@ class _ChoixState extends State<Choix> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                        Image.asset('assets/images/euro.png'),
-                                        Text(
-                                            'Voulez vous épargner en €',
-                                                style: GoogleFonts.getFont(
-                                                'Roboto',
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                        Image.asset('assets/images/bitcoin.png'),
-                                        Text(
-                                            'Voulez vous épargner en bitcoin',
-                                                style: GoogleFonts.getFont(
-                                                'Roboto',
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                            ),
-                                        ),
+                                        Image.asset('assets/images/under.png'),
+                                        Text("En cours de développement", style: TextStyle(color: Colors.white, fontSize: 30),),
                                     ],
                                 )
                             ],
@@ -134,87 +94,13 @@ class _ChoixState extends State<Choix> {
                     );
                   } else {
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                                Image.asset('assets/images/euro.png'),
-                                Text(
-                                    'Voulez vous épargner en €',
-                                        style: GoogleFonts.getFont(
-                                        'Roboto',
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                    ),
-                                ),
-                                SizedBox(
-                                    height: 40,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => UnderContruction()));
-                                        /* control.index.value = 1;
-                                        Get.forceAppUpdate(); */
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFFC79000),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                        ),
-                                    ),
-                                    child: Text(
-                                        'Cliquer ici',
-                                            style: GoogleFonts.getFont(
-                                            'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                        ),
-                                    ),
-                                ),
-                            ],
-                        ),
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                                Image.asset('assets/images/bitcoin.png'),
-                                Text(
-                                    'Voulez vous épargner en bitcoin',
-                                        style: GoogleFonts.getFont(
-                                        'Roboto',
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                    ),
-                                ),
-                                SizedBox(
-                                    height: 40,
-                                ),
-
-                                ElevatedButton(
-                                    onPressed: () {
-                                        /* control.index.value = 1;
-                                        Get.forceAppUpdate(); */
-                                        _connectToBridgeToRedirect();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFFFF7A0B),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                        ),
-                                    ),
-                                    child: Text(
-                                        'Cliquer ici',
-                                            style: GoogleFonts.getFont(
-                                            'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                        ),
-                                    ),
-                                ),
+                                Image.asset('assets/images/under.png'),
+                                Text("En cours de développement", style: TextStyle(color: Colors.white, fontSize: 30),),
                             ],
                         )
                       ],
