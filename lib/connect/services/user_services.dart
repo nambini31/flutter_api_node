@@ -16,7 +16,8 @@ Future<ApiResponse> login (String email, String password) async {
                 "Content-Type": "application/json",
                 "Bridge-Version": "2021-06-01",
                 "Client-Id": clientId,
-                "Client-Secret": clientSecret
+                "Client-Secret": clientSecret,
+                "Access-Control-Allow-Origin": "*"
             },
             body: jsonEncode({'email': email, 'password': password})
         );
@@ -62,7 +63,8 @@ Future<ApiResponse> register (String email, String password) async {
                 "Content-Type": "application/json",
                 "Bridge-Version": "2021-06-01",
                 "Client-Id": clientId,
-                "Client-Secret": clientSecret
+                "Client-Secret": clientSecret,
+                "Access-Control-Allow-Origin": "*"
             },
             body: jsonEncode({'email': email, 'password': password})
         );
