@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_api_node/connect/Controlleur/coinControlleur.dart';
 import 'package:flutter_api_node/connect/models/historical_model.dart';
-
-
-
 class Performance extends StatelessWidget {
+    final String? param;
+    const Performance({this.param});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ChartData>>(
-      future: fetchHistoricalData(),
+      future: fetchHistoricalData(param),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Erreur: ${snapshot.error}');
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-          return Text('Aucune donnée disponible.');
+          return const Text('Aucune donnée disponible.');
         } else {
           // Mettez à jour les données pour diviser le prix par 0.05
           final modifiedData = snapshot.data!.map((data) {
@@ -32,7 +32,7 @@ class Performance extends StatelessWidget {
               color: Color.fromRGBO(6, 11, 39, 0.767),
               child: Stack(
                 children: [
-                  Center(
+                  const Center(
                     heightFactor: 0,
                     child: Text('Performance',
                       textAlign: TextAlign.center,

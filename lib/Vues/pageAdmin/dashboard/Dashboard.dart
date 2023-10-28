@@ -15,10 +15,11 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  @override
-  void initState() {
-    super.initState();
-  }
+    String parm = "";
+    @override
+    void initState() {
+        super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,11 @@ class _DashboardState extends State<Dashboard> {
               child: Row(
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "H";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -42,19 +47,23 @@ class _DashboardState extends State<Dashboard> {
                             //Color.fromARGB(255, 243, 63, 146),
                           )),
                       child: Text(
-                        "H",
-                        style: GoogleFonts.getFont(
-                          'Roboto',
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                          "H",
+                          style: GoogleFonts.getFont(
+                              'Roboto',
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                          ),
                       )),
                   SizedBox(
                     width: 5,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "D";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -62,20 +71,31 @@ class _DashboardState extends State<Dashboard> {
 
                             //Color.fromARGB(255, 243, 63, 146),
                           )),
-                      child: Text(
-                        "J",
-                        style: GoogleFonts.getFont(
-                          'Roboto',
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: InkWell(
+                            child: Text(
+                                "J",
+                                style: GoogleFonts.getFont(
+                                    'Roboto',
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                ),
+                            ),
+                            onTap: () {
+                                setState(() {
+                                    parm = "D";
+                                });
+                            },
                       )),
                   SizedBox(
                     width: 5,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "W";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -96,7 +116,11 @@ class _DashboardState extends State<Dashboard> {
                     width: 5,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "M";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -117,7 +141,11 @@ class _DashboardState extends State<Dashboard> {
                     width: 5,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "SM";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -138,7 +166,11 @@ class _DashboardState extends State<Dashboard> {
                     width: 5,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                            parm = "Y";
+                        });
+                      },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                           backgroundColor: MaterialStatePropertyAll(
@@ -162,7 +194,7 @@ class _DashboardState extends State<Dashboard> {
           Flexible(
             flex: 5,
             child: Row(
-              children: [Performance(), Repartition()],
+              children: [Performance(param: parm,), Repartition()],
             ),
           ),
           Row(
