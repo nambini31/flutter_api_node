@@ -69,7 +69,7 @@ class _TabCoinState extends State<TabCoin> {
     final coinModelStream = getCryptoData(coinDataList);
 
     coinModelStream.listen((coinModel) {
-      // Mettez à jour la liste de données avec les nouvelles valeurs
+     
       setState(() {
         coinDataList.clear();
         coinDataList.add(coinModel);
@@ -184,7 +184,7 @@ class _TabCoinState extends State<TabCoin> {
                 )),
               ]);
             }).toList(),
-            // Ajoutez les lignes supplémentaires après celles de coinDataList
+            
             ...additionalRows,
           ],
         ),

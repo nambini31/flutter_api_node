@@ -80,7 +80,7 @@ dependencies:
   firebase_auth: ^4.11.1
   cloud_firestore: ^4.11.0
   syncfusion_flutter_charts: ^23.1.42
-  dio: ^5.3.3
+  material_dialogs: ^1.1.4
 
 
   # The following adds the Cupertino Icons font to your application.

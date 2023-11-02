@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_api_node/Vues/wallet/wallet.dart';
 import 'package:flutter_api_node/connect/models/api_response.dart';
 import 'package:flutter_api_node/connect/services/connect_bridge_services.dart';
 import 'package:flutter_api_node/connect/services/user_services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../connect/Controlleur/IndexControlleur.dart';
 
 class Menu extends StatefulWidget {
@@ -17,23 +17,23 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-    var control = Get.find<IndexControlleur>();
+  var control = Get.find<IndexControlleur>();
 
-    void _connectToBridgeToRedirect() async{
-        ApiResponse apiResponse = await connectToBridge();
-        if(apiResponse.error == null){
-            Map<String, dynamic>? dataMap = apiResponse.data as Map<String, dynamic>?;
-            String redirectUrl = dataMap!['redirect_url'];
-            final Uri uri = Uri.parse(redirectUrl);
-            _launchURL(uri);
-        }
+  void _connectToBridgeToRedirect() async {
+    ApiResponse apiResponse = await connectToBridge();
+    if (apiResponse.error == null) {
+      Map<String, dynamic>? dataMap = apiResponse.data as Map<String, dynamic>?;
+      String redirectUrl = dataMap!['redirect_url'];
+      final Uri uri = Uri.parse(redirectUrl);
+      _launchURL(uri);
     }
+  }
 
-    Future<void> _launchURL(Uri url) async {
-        if(!await launchUrl(url)){
-            throw 'Could not launch $url';
-        }
+  Future<void> _launchURL(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +88,12 @@ class _MenuState extends State<Menu> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // control.index.value = 0;
-                  //Get.forceAppUpdate();
+                 showDialog(
+                    context: context,
+                    builder: (context) {
+                      return MyWallet.getWalletDialog(context);
+                    },
+                  );
                 },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.all(15)),
@@ -123,8 +127,7 @@ class _MenuState extends State<Menu> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // control.index.value = 0;
-                  //Get.forceAppUpdate();
+                  
                 },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.all(15)),
